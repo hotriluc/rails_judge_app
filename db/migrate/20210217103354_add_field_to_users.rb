@@ -1,6 +1,6 @@
 class AddFieldToUsers < ActiveRecord::Migration[5.2]
   def change
     add_column :users, :name, :string
-    add_column :users, :teacher, :bool
+    add_column :users, :teacher, :bool, default: false
   end
 end
