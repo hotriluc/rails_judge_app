@@ -1,10 +1,21 @@
-
-<%= @user.email %>
-
-<% if @user.teacher?%>
-  hi i am a teacher
+<% provide(:title, @user.name)%>
 
 
-<%else %>
-  i am student
-<%end %>
+<div class="user">
+  <h2 class = "user__name"> <%= @user.name %></h2>
+
+  <p class="user__email">Email: <%= @user.email %></p>
+  <% if @user.teacher?%>
+
+    <p class="user__role">Role: Teacher</p>
+
+    <li><%= link_to "Create student", "#", class: 'nav-link'%></li>
+  <%else %>
+    <p class="user__role">Role: Student</p>
+  <%end %>
+
+
+</div>
+
+
+
