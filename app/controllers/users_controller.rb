@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :teacher_user, only: [:new,:create_student, :edit, :destroy]
+  before_action :teacher_user, only: [:new,:create_student, :edit, :update, :destroy]
 
 
   def show
@@ -10,16 +10,17 @@ class UsersController < ApplicationController
   # creating new student
   def new
     @user = User.new
-
   end
 
-  def create_student
 
+  # custom create post method to avoid conflict between devise UserRegistrationController create
+  # and User Controller create
+  def create_student
     puts "Create start==============="
     @user = User.new(user_params)
 
     if @user.save
-      redirect_to root_path
+      redirect_to user_path(current_user)
     #  do something
     else
       render 'users/new'
@@ -30,8 +31,36 @@ class UsersController < ApplicationController
 
   # edit student
   def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
 
 
+
+    @user = User.find(params[:id])
+
+
+
+
+    # if params[:password].empty?
+    #   @user.update_attributes()
+    # end
+
+    if @user.update_attributes(user_params)
+      flash[:success] = "Profile updated"
+      redirect_to root_path
+    else
+      # puts '============'
+      # puts params[:password].blank?
+      # puts '========='
+      #
+      # # if params[:password.blank?]
+      # #   @user.update_attributes(name: params[:name], email: params[:email])
+      # # end
+
+      render 'edit'
+    end
   end
 
   # destroy student
@@ -45,7 +74,12 @@ class UsersController < ApplicationController
 
   # if current user is teacher he can create edit destroy users
   def teacher_user
-    redirect_to(root_url) unless current_user.teacher?
+    unless current_user.teacher?
+      flash[:alert] = "You don't have permission to do this"
+      redirect_to(root_url)
+    end
+
+    # redirect_to(root_url) unless current_user.teacher?
   end
 
   def correct_user
@@ -57,5 +91,6 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name,:email,:password,:password_confirmation)
   end
+
 
 end
