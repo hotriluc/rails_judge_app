@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  # before_action :teacher_user, only: [:new,:create, :edit, :destroy]
+  before_action :teacher_user, only: [:new,:create_student, :edit, :destroy]
 
 
   def show
@@ -13,8 +13,8 @@ class UsersController < ApplicationController
 
   end
 
-  def create
-    0/0
+  def create_student
+
     puts "Create start==============="
     @user = User.new(user_params)
 
@@ -53,6 +53,7 @@ class UsersController < ApplicationController
     redirect_to root_url unless current_user == @user
   end
 
+  # required params for created users
   def user_params
     params.require(:user).permit(:name,:email,:password,:password_confirmation)
   end

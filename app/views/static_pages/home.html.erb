@@ -3,7 +3,7 @@
 
 
 <% if user_signed_in? %>
-  <%= current_user %>
+  <%= current_user.name %>
 
 <% else %>
   <li><%= link_to "Sign Up as Teacher", new_user_registration_path, class: 'nav-link'%></li>

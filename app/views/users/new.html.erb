@@ -6,9 +6,10 @@ hi i am a page to create new students only teacher can read this
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= form_for @user, url: url_for(controller: 'users', action: 'create') do |f| %>
+<!--    defining action to make no conflict between devise registration create and user create-->
+    <%= form_for @user, url: url_for(controller: 'users', action: 'create_student') do |f| %>
 
-      <%= "darova " %>
+
       <%= f.label :name %>
       <%= f.text_field :name, class: 'form-control' %>
 
