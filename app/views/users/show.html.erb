@@ -9,7 +9,7 @@
 
     <p class="user__role">Role: Teacher</p>
 
-    <li><%= link_to "Create student", "#", class: 'nav-link'%></li>
+    <li><%= link_to "Create student", new_user_path, class: 'nav-link'%></li>
   <%else %>
     <p class="user__role">Role: Student</p>
   <%end %>

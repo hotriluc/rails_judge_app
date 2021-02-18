@@ -14,7 +14,16 @@ class UsersController < ApplicationController
   end
 
   def create
+    0/0
+    puts "Create start==============="
+    @user = User.new(user_params)
 
+    if @user.save
+      redirect_to root_path
+    #  do something
+    else
+      render 'users/new'
+    end
 
   end
 
@@ -32,7 +41,7 @@ class UsersController < ApplicationController
   end
 
 
-  protected
+  private
 
   # if current user is teacher he can create edit destroy users
   def teacher_user
@@ -42,7 +51,10 @@ class UsersController < ApplicationController
   def correct_user
     @user = User.find(params[:id])
     redirect_to root_url unless current_user == @user
+  end
 
+  def user_params
+    params.require(:user).permit(:name,:email,:password,:password_confirmation)
   end
 
 end
