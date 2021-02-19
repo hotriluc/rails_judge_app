@@ -48,11 +48,15 @@ class UsersController < ApplicationController
 
     #Check if password in params is empty
     # if it is then we will send hash user_params without password and password confirmation
-    if params[:user][:password].empty?
-      edit_user_params = user_params.except("password","password_confirmation")
-    else
-      edit_user_params  = user_params
-    end
+    # if params[:user][:password].empty?
+    #   edit_user_params = user_params.except("password","password_confirmation")
+    # else
+    #   edit_user_params  = user_params
+    # end
+
+    # using the ternary operator the same as commented above code
+    edit_user_params =  params[:user][:password].empty? ? user_params.except("password","password_confirmation") : user_params
+
 
     if @user.update_attributes(edit_user_params)
       flash[:success] = "Profile updated"
