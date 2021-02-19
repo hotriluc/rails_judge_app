@@ -16,9 +16,12 @@ class UsersController < ApplicationController
   # custom create post method to avoid conflict between devise UserRegistrationController create
   # and User Controller create
   def create_student
-    puts "Create start==============="
+    # puts "Create start==============="
+
+    #Creating new user with required params
     @user = User.new(user_params)
 
+    #After saving redirect to current user (the one who is in session)
     if @user.save
       redirect_to user_path(current_user)
     #  do something
@@ -36,29 +39,25 @@ class UsersController < ApplicationController
 
   def update
 
-
-
     @user = User.find(params[:id])
 
+    # p '=================================='
+    # p user_params
+    # p params[:user][:password].empty?
+    # p '==========='
 
-
-
-    # if params[:password].empty?
-    #   @user.update_attributes()
-    # end
-
-    if @user.update_attributes(user_params)
-      flash[:success] = "Profile updated"
-      redirect_to root_path
+    #Check if password in params is empty
+    # if it is then we will send hash user_params without password and password confirmation
+    if params[:user][:password].empty?
+      edit_user_params = user_params.except("password","password_confirmation")
     else
-      # puts '============'
-      # puts params[:password].blank?
-      # puts '========='
-      #
-      # # if params[:password.blank?]
-      # #   @user.update_attributes(name: params[:name], email: params[:email])
-      # # end
+      edit_user_params  = user_params
+    end
 
+    if @user.update_attributes(edit_user_params)
+      flash[:success] = "Profile updated"
+      redirect_to current_user
+    else
       render 'edit'
     end
   end
@@ -76,7 +75,7 @@ class UsersController < ApplicationController
   def teacher_user
     unless current_user.teacher?
       flash[:alert] = "You don't have permission to do this"
-      redirect_to(root_url)
+      redirect_to(current_user)
     end
 
     # redirect_to(root_url) unless current_user.teacher?
