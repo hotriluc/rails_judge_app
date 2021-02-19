@@ -1,11 +1,20 @@
-<h1>StaticPages#home</h1>
-<p>Find me in app/views/static_pages/home.html.erb</p>
+<section class="section-home">
+
+  <div class="welcome">
+    <h1>Welcome to JudgeApp</h1>
+    <p>It's time to judge you</p>
+  </div>
 
 
-<% if user_signed_in? %>
-  <%= current_user.name %>
+  <% if user_signed_in? %>
+    <%= current_user.name %>
+  <% else %>
 
-<% else %>
-  <li><%= link_to "Sign Up as Teacher", new_user_registration_path, class: 'nav-link'%></li>
-  <li><%= link_to "Log in", new_user_session_path, class: 'nav-link'%></li>
-<% end %>
+    <div class="login-box">
+      <li><%= link_to "Log in", new_user_session_path, class: 'nav-link'%></li>
+      <li><%= link_to "Sign Up as Teacher", new_user_registration_path, class: 'nav-link'%></li>
+    </div>
+
+  <% end %>
+
+</section>
