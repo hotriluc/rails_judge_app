@@ -1,0 +1,15 @@
+<li>
+
+  <%= link_to user.name, user %>
+  <% if current_user.teacher? && !(current_user == user) %>
+
+
+<!--      to make sure that teacher can not delete another teacher-->
+      <%if !user.teacher? %>
+    | <%= link_to "Edit", edit_user_path(user)%>
+      <%= link_to "Delete", user, method: :delete,
+                        data: { confirm: "You sure?" } %>
+      <%end %>
+
+  <% end %>
+</li>

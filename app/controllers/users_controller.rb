@@ -3,6 +3,12 @@ class UsersController < ApplicationController
   before_action :teacher_user, only: [:new,:create_student, :edit, :update, :destroy]
 
 
+
+  def index
+    @users = User.all
+  end
+
+
   def show
     @user = User.find(params[:id])
   end
@@ -69,7 +75,9 @@ class UsersController < ApplicationController
   # destroy student
   def destroy
 
-
+    User.find(params[:id]).destroy
+    flash[:success] = "User has been deleted"
+    # in the future after deleting user in group page redirect back to group
   end
 
 
