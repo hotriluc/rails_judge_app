@@ -1,8 +1,10 @@
 <section class="section-home">
 
-  <div class="welcome">
-    <h1>Welcome to JudgeApp</h1>
-    <p>It's time to judge you</p>
+  <div class="welcome container">
+    <div class="row justify-content-center">
+      <h1 class="heading-primary heading-primary--main">Welcome to JudgeApp</h1>
+      <p class="heading-primary--sub">It's time to judge you</p>
+    </div>
   </div>
 
 
@@ -10,11 +12,11 @@
     <%= current_user.name %>
   <% else %>
 
-    <div class="login-box">
-      <li><%= link_to "Log in", new_user_session_path, class: 'nav-link'%></li>
-      <li><%= link_to "Sign Up as Teacher", new_user_registration_path, class: 'nav-link'%></li>
-    </div>
+  <%=render('layouts/login') %>
 
   <% end %>
 
 </section>
+
+
+
