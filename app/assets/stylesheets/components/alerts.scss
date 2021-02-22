@@ -1,0 +1,15 @@
+#error_explanation {
+  color: red;
+  ul {
+    color: red;
+    margin: 2rem 0;
+  }
+}
+
+
+.notice, .alert {
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+  border: none;
+}
