@@ -1,2 +1,9 @@
 hi its a group  page
 <h1><%= @group.id %> | <%= @group.name %></h1>
+
+<% if current_user.teacher?%>
+  <%= link_to "Edit group (name)", edit_group_path(@group)%>
+  <%= link_to "Delete", @group, method: :delete,
+              data: { confirm: "You sure?" } %>
+
+<%end %>

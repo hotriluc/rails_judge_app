@@ -1,0 +1,18 @@
+<% provide(:title, "Edit group") %>
+<h1>Update Group </h1>
+
+<div class="row justify-content-center">
+  <div class="col-md-5 col-md-offset-3">
+    <%= form_for(@group) do |f| %>
+      <%#= render 'shared/error_messages' %>
+
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control input' %>
+
+
+      <%= f.submit "Save changes", class: "btn btn-primary" %>
+    <% end %>
+
+
+  </div>
+</div>
