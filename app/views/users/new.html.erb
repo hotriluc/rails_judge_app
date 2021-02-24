@@ -4,23 +4,23 @@ hi i am a page to create new students only teacher can read this
 <h1>Create Student</h1>
 
 
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
+<div class="row justify-content-center">
+  <div class="col-md-5 col-md-offset-3">
 <!--    defining action to make no conflict between devise registration create and user create-->
     <%= form_for @user, url: url_for(controller: 'users', action: 'create_student') do |f| %>
 
 
       <%= f.label :name %>
-      <%= f.text_field :name, class: 'form-control' %>
+      <%= f.text_field :name, class: 'form-control input' %>
 
       <%= f.label :email %>
-      <%= f.email_field :email, class: 'form-control' %>
+      <%= f.email_field :email, class: 'form-control input' %>
 
       <%= f.label :password %>
-      <%= f.password_field :password, class: 'form-control' %>
+      <%= f.password_field :password, class: 'form-control input' %>
 
       <%= f.label :password_confirmation, "Confirmation" %>
-      <%= f.password_field :password_confirmation, class: 'form-control' %>
+      <%= f.password_field :password_confirmation, class: 'form-control input' %>
 
       <%= f.submit "Create student's account", class: "btn btn-primary" %>
     <% end %>

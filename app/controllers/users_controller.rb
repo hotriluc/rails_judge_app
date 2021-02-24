@@ -86,7 +86,7 @@ class UsersController < ApplicationController
   # if current user is teacher he can create edit destroy users
   def teacher_user
     unless current_user.teacher?
-      flash[:alert] = "You don't have permission to do this"
+      flash[:danger] = "You don't have permission to do this"
       redirect_to(current_user)
     end
 
