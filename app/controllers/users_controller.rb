@@ -80,11 +80,6 @@ class UsersController < ApplicationController
     # in the future after deleting user in group page redirect back to group
   end
 
-  # def my_groups
-  #   @user = User.find[params[:id]]
-  #   @groups = @user.groups
-  # end
-
 
 
   private

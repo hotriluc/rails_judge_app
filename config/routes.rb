@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   get 'my_groups', to: 'groups#my_groups'
   post 'add_to_group/:id', to: 'groups#add_to_my_group', as: 'add_to_group'
+  post 'remove_from_group/:id', to: 'groups#remove_from_my_group', as: 'remove_from_group'
 
 
 

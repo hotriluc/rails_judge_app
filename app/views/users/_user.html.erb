@@ -6,12 +6,26 @@
 
 <!--      to make sure that teacher can not delete another teacher-->
       <%if !user.teacher? %>
-    | <%= link_to "Edit", edit_user_path(user)%>
-      <%= link_to "Delete", user, method: :delete,
-                        data: { confirm: "You sure?" } %>
 
+
+<!--      | <%#= link_to "Edit", edit_user_path(user)%>-->
+      <%#= link_to "Delete", user, method: :delete, data: { confirm: "You sure?" } %>
+      |
+
+      <%= link_to "Remove from group", remove_from_group_path(@group.id, user: user), method: :post
+      %>
       <%= link_to "Add to group", add_to_group_path(@group.id, user: user), method: :post
       %>
+
+      <%#if @group.users.include?(user) %>
+        <%#= link_to "Remove from group", remove_from_group_path(@group.id, user: user), method: :post %>
+
+
+        <%#else %>
+            <%#= link_to "Add to group", add_to_group_path(@group.id, user: user), method: :post %>
+        <%#end %>
+
+
       <%end %>
 
   <% end %>

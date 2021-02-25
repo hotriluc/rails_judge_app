@@ -69,7 +69,6 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     @user = User.find(params[:user])
 
-
     #should check if user is in group then add
 
     @group.users << @user
@@ -77,7 +76,15 @@ class GroupsController < ApplicationController
 
     redirect_to @group
 
+  end
 
+  #remove user from group
+  def remove_from_my_group
+    @group = Group.find(params[:id])
+    @user = User.find(params[:user])
+    @group.users.delete @user
+
+    redirect_to @group
   end
 
 

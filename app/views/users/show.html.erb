@@ -4,18 +4,26 @@
 <div class="user">
   <h2 class = "user__name"> <%= @user.name %></h2>
 
+  <% if current_user.teacher? && !(current_user == @user) %>
+    <!--      to make sure that teacher can not delete another teacher-->
+    <%if !@user.teacher? %>
+      <%= link_to "Edit", edit_user_path(@user)%>
+      <%= link_to "Delete", @user, method: :delete,
+                  data: { confirm: "You sure?" } %>
+    <%end %>
+  <% end %>
+
   <p class="user__email">Email: <%= @user.email %></p>
+
+  <!--  visible only for teacher-->
   <% if @user.teacher?%>
-
     <p class="user__role">Role: Teacher</p>
-
     <li><%= link_to "Create student", new_user_path%></li>
     <li><%= link_to "Create group", new_group_path%></li>
-
   <%else %>
     <p class="user__role">Role: Student</p>
   <%end %>
-    <li><%= link_to "My groups", "#"%></li>
+    <li><%= link_to "My groups", my_groups_path%></li>
 
 
 </div>
