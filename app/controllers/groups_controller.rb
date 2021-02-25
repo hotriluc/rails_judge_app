@@ -15,6 +15,8 @@ class GroupsController < ApplicationController
   def create
 
     @group = Group.new(group_params)
+    @group.users = [current_user]
+
 
     if @group.save
       flash[:success] = "Group has been created"
@@ -26,6 +28,8 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
+    @users = @group.users
+    @users_not_in_group = User.where.not(id: @users)
   end
 
   def edit
@@ -45,10 +49,35 @@ class GroupsController < ApplicationController
     end
   end
 
+
+  # destroy the group
   def destroy
     Group.find(params[:id]).destroy
     flash[:success] = "Group has been deleted"
     redirect_to current_user
+  end
+
+
+  #current user's groups
+  def my_groups
+    @groups = current_user.groups
+  end
+
+
+  #add user to group
+  def add_to_my_group
+    @group = Group.find(params[:id])
+    @user = User.find(params[:user])
+
+
+    #should check if user is in group then add
+
+    @group.users << @user
+    @group.save
+
+    redirect_to @group
+
+
   end
 
 

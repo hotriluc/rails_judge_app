@@ -9,6 +9,9 @@
     | <%= link_to "Edit", edit_user_path(user)%>
       <%= link_to "Delete", user, method: :delete,
                         data: { confirm: "You sure?" } %>
+
+      <%= link_to "Add to group", add_to_group_path(@group.id, user: user), method: :post
+      %>
       <%end %>
 
   <% end %>

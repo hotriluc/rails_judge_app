@@ -11,5 +11,10 @@ Rails.application.routes.draw do
   post 'create_student', to: 'users#create_student'
 
 
+  get 'my_groups', to: 'groups#my_groups'
+  post 'add_to_group/:id', to: 'groups#add_to_my_group', as: 'add_to_group'
+
+
+
 
 end
