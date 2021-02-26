@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
+  include ApplicationHelper
+
   before_action :authenticate_user!
   before_action :teacher_user, only: [:new,:create_student, :edit, :update, :destroy]
+
 
 
 
@@ -77,27 +80,14 @@ class UsersController < ApplicationController
 
     User.find(params[:id]).destroy
     flash[:success] = "User has been deleted"
-    # in the future after deleting user in group page redirect back to group
+
+    redirect_to current_user
   end
 
 
 
   private
 
-  # if current user is teacher he can create edit destroy users
-  def teacher_user
-    unless current_user.teacher?
-      flash[:danger] = "You don't have permission to do this"
-      redirect_to(current_user)
-    end
-
-    # redirect_to(root_url) unless current_user.teacher?
-  end
-
-  def correct_user
-    @user = User.find(params[:id])
-    redirect_to root_url unless current_user == @user
-  end
 
   # required params for created users
   def user_params

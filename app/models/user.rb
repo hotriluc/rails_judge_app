@@ -22,11 +22,14 @@ class User < ApplicationRecord
   has_many :groups, through: :user_groups, foreign_key: 'owner_id'
 
 
-  private
 
+
+  private
 
   def downcase_email
     self.email = email.downcase
   end
+
+
 
 end

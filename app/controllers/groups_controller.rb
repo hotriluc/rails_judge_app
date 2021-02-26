@@ -1,7 +1,12 @@
 class GroupsController < ApplicationController
+  include ApplicationHelper
+
   before_action :authenticate_user!
   #before action (check if user is a teacher and owner)
   # for new create edit update destroy is needed
+
+  before_action :teacher_user, only: [:new, :create, :edit, :update, :destroy]
+  before_action :correct_owner, only: [:edit,:update,:destroy,:add_to_my_group,:remove_from_my_group]
 
 
   def index

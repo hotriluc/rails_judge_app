@@ -27,5 +27,30 @@ module ApplicationHelper
   end
 
 
+  #====BEFORE FILTERS====
+
+  # if current user is teacher he can create edit destroy users
+  def teacher_user
+    unless current_user.teacher?
+      flash[:danger] = "You don't have permission to do this"
+      redirect_to(current_user)
+    end
+
+    # redirect_to(root_url) unless current_user.teacher?
+  end
+
+  #check if current user is teacher and owner of the group
+  # if he is then can do something
+  def correct_owner
+    @group = Group.find(params[:id])
+    @owner = User.find(@group.owner_id)
+
+    unless current_user == @owner
+      flash[:danger] = "You don't have permission to do this"
+      redirect_to root_url
+    end
+  end
+
+
 
 end
