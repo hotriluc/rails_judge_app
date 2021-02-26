@@ -105,7 +105,7 @@ class GroupsController < ApplicationController
 
 
   def group_params
-    params.require(:group).permit(:name, :owner_id)
+    params.require(:group).permit(:name)
   end
 
 #  student can still create group so we need a methd

@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   before_action :authenticate_user!
   before_action :teacher_user, only: [:new,:create_student, :edit, :update, :destroy]
-
+  before_action :creator, only: [:edit,:update,:destroy]
 
 
 
@@ -29,6 +29,7 @@ class UsersController < ApplicationController
 
     #Creating new user with required params
     @user = User.new(user_params)
+    @user.creator_id = current_user.id
 
     #After saving redirect to current user (the one who is in session)
     if @user.save

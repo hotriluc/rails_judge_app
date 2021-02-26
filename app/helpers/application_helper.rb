@@ -42,12 +42,27 @@ module ApplicationHelper
   #check if current user is teacher and owner of the group
   # if he is then can do something
   def correct_owner
+    #current group
     @group = Group.find(params[:id])
+    #owner of the group
     @owner = User.find(@group.owner_id)
 
     unless current_user == @owner
       flash[:danger] = "You don't have permission to do this"
       redirect_to root_url
+    end
+  end
+
+
+  #only exact student creator
+  def creator
+    @user = User.find(params[:id])
+
+    # check if user's creator is the current user
+    # if he is then he can edit delete and update
+    unless @user.creator_id == current_user.id
+      flash[:danger] = "You don't have permission to do this"
+      redirect_to(current_user)
     end
   end
 
