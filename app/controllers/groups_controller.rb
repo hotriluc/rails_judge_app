@@ -16,10 +16,12 @@ class GroupsController < ApplicationController
 
     @group = Group.new(group_params)
     @group.users = [current_user]
+    @group.owner_id = current_user.id
 
 
     if @group.save
       flash[:success] = "Group has been created"
+
       redirect_to @group
     else
       render :new
@@ -27,7 +29,10 @@ class GroupsController < ApplicationController
   end
 
   def show
+
     @group = Group.find(params[:id])
+
+    @owner = User.find(@group.owner_id)
     @users = @group.users
     @users_not_in_group = User.where.not(id: @users)
   end
@@ -60,7 +65,9 @@ class GroupsController < ApplicationController
 
   #current user's groups
   def my_groups
-    @groups = current_user.groups
+
+      @groups = current_user.groups
+
   end
 
 
@@ -93,7 +100,7 @@ class GroupsController < ApplicationController
 
 
   def group_params
-    params.require(:group).permit(:name)
+    params.require(:group).permit(:name, :owner_id)
   end
 
 #  student can still create group so we need a methd
