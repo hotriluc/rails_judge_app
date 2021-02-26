@@ -17,7 +17,10 @@
 
   <ul class="users">
     <% @users.each do |user| %>
-      <%= render user %>
+      <%= render user do%>
+        <%= link_to "Remove from group", remove_from_group_path(@group.id, user: user), method: :post
+        %>
+      <%end %>
     <% end %>
 
   </ul>
@@ -29,7 +32,10 @@
 
       <ul class="users">
         <% @users_not_in_group.each do |user| %>
-          <%= render user %>
+          <%= render user do%>
+            <%= link_to "Add to group", add_to_group_path(@group.id, user: user), method: :post
+            %>
+          <%end %>
         <% end %>
 
       </ul>
