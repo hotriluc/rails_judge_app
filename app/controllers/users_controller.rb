@@ -32,10 +32,15 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.creator_id = current_user.id
 
+    #by default created user is the teacher
+    # so we need to switch the flag to false
+    @user.teacher = false
+
     #After saving redirect to current user (the one who is in session)
     if @user.save
-      #then send confirmation instructions
-      @user.send_confirmation_instructions
+      #The confirmation instructions will be sent by devise
+      # because we declared that user is confirmable
+
 
       redirect_to user_path(current_user)
     #  do something
