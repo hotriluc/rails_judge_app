@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   include ApplicationHelper
 
+
   before_action :authenticate_user!
   before_action :teacher_user, only: [:new,:create_student, :edit, :update, :destroy]
   before_action :creator, only: [:edit,:update,:destroy]
@@ -33,6 +34,9 @@ class UsersController < ApplicationController
 
     #After saving redirect to current user (the one who is in session)
     if @user.save
+      #then send confirmation instructions
+      @user.send_confirmation_instructions
+
       redirect_to user_path(current_user)
     #  do something
     else
