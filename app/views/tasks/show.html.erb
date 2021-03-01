@@ -1,0 +1,10 @@
+<% if current_user.teacher? %>
+  <%= link_to "Edit task", "#"%>
+  <%#= link_to "Delete", @group, method: :delete,data: { confirm: "You sure?" } %>
+
+<%end %>
+
+<h1><%=@task.name %></h1>
+<h3>Programming language: <%=@task.language %></h3>
+<h3>Description</h3>
+<p><%=@task.description %></p>

@@ -40,6 +40,8 @@ class GroupsController < ApplicationController
     @owner = User.find(@group.owner_id)
     @users = @group.users
     @users_not_in_group = User.where.not(id: @users)
+
+    @tasks = @group.tasks
   end
 
   def edit
