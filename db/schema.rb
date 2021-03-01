@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_26_163853) do
+ActiveRecord::Schema.define(version: 2021_03_01_110646) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,16 @@ ActiveRecord::Schema.define(version: 2021_02_26_163853) do
     t.datetime "updated_at", null: false
     t.bigint "owner_id"
     t.index ["owner_id"], name: "index_groups_on_owner_id"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "language"
+    t.bigint "group_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_tasks_on_group_id"
   end
 
   create_table "user_groups", force: :cascade do |t|
@@ -52,6 +62,7 @@ ActiveRecord::Schema.define(version: 2021_02_26_163853) do
   end
 
   add_foreign_key "groups", "users", column: "owner_id"
+  add_foreign_key "tasks", "groups"
   add_foreign_key "user_groups", "groups"
   add_foreign_key "user_groups", "users"
 end

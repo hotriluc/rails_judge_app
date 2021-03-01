@@ -6,6 +6,9 @@
   <%= link_to "Delete", @group, method: :delete,
               data: { confirm: "You sure?" } %>
 
+  <%= link_to "Create new task", new_task_path(@group.id)
+  %>
+
 <%end %>
 
 <h2>Owner: <%=@owner.name%></h2>

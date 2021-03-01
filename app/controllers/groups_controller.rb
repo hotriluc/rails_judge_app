@@ -78,11 +78,11 @@ class GroupsController < ApplicationController
 
   #add user to group
   def add_to_my_group
+
     @group = Group.find(params[:id])
     @user = User.find(params[:user])
 
     #should check if user is in group then add
-
     @group.users << @user
     @group.save
 
@@ -108,7 +108,7 @@ class GroupsController < ApplicationController
     params.require(:group).permit(:name)
   end
 
-#  student can still create group so we need a methd
+
 
 
 end

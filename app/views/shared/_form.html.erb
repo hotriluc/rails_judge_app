@@ -1,0 +1,39 @@
+<!--rendering different fields depends on controller-->
+<%if controller.controller_name == "users"%>
+  <%resource = @user %>
+  <%partial_path = 'users/user_form_fields' %>
+
+  <%if controller.action_name == 'new'%>
+    <%route = {controller: 'users', action: 'create_student'} %>
+  <%elsif controller.action_name == 'edit'%>
+    <%route = {controller: 'users', action: 'update'} %>
+  <%end%>
+
+<%elsif controller.controller_name == "tasks"%>
+  <%resource = @task %>
+  <%partial_path = 'tasks/task_form_fields' %>
+  <%if controller.action_name == 'new'%>
+    <%route = {controller: 'tasks', action: 'create'} %>
+  <%elsif controller.action_name == 'edit'%>
+    <%route = {controller: 'tasks', action: 'update'} %>
+  <%end%>
+
+
+
+<%end %>
+
+<%#if controller.action_name == 'edit'%>
+  <%#route = {controller: 'users', action: 'update'} %>
+<%#end %>
+
+
+<div class="row justify-content-center">
+  <div class="col-md-5 col-md-offset-3">
+
+      <%= form_for resource, url: url_for(route) do |f| %>
+
+      <%=render partial: partial_path, locals: {f: f} %>
+
+    <% end %>
+  </div>
+</div>

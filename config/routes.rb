@@ -18,6 +18,9 @@ Rails.application.routes.draw do
   post 'remove_from_group/:id', to: 'groups#remove_from_my_group', as: 'remove_from_group'
 
 
+  # task for specific group
+  get 'groups/:id/new_task', to: 'tasks#new', as: 'new_task'
+  post 'groups/:id/create_task', to: 'tasks#create', as: 'create_task'
 
 
 end
