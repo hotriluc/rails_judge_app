@@ -23,6 +23,6 @@ Rails.application.routes.draw do
   post 'groups/:id/create_task', to: 'tasks#create', as: 'create_task'
   get 'groups/:id/tasks/:task_id', to: 'tasks#show', as: 'task'
   get 'groups/:id/tasks/:task_id/edit', to: 'tasks#edit', as: 'edit_task'
-  patch 'groups/:id/tasks/:task_id/update', to: 'tasks#update'
-
+  patch 'groups/:id/tasks/:task_id', to: 'tasks#update'
+  delete 'groups/:id/tasks/:task_id', to: 'tasks#destroy', as: 'delete_task'
 end

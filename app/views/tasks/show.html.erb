@@ -1,6 +1,6 @@
 <% if current_user.teacher? %>
   <%= link_to "Edit task", edit_task_path(@group.id, task_id: @task)%>
-  <%#= link_to "Delete", @group, method: :delete,data: { confirm: "You sure?" } %>
+  <%= link_to "Delete", delete_task_path(@group.id, task_id: @task), method: :delete,data: { confirm: "You sure?" } %>
 
 <%end %>
 

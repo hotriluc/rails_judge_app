@@ -13,12 +13,14 @@ class TasksController < ApplicationController
     @task = @group.tasks.build
   end
 
+  #create new task
   def create
-
+    #getting specific group
     @group = Group.find(params[:id])
-    # Task belongs to group so use build
+    #build task for specific group
     @task = @group.tasks.build(task_params)
 
+    #saving task
     if @task.save
       flash[:success] = "Task has been successfully created"
       redirect_to @group
@@ -28,6 +30,7 @@ class TasksController < ApplicationController
   end
 
   def show
+
     @group = Group.find(params[:id])
     @task = @group.tasks.find(params[:task_id])
 
@@ -53,8 +56,11 @@ class TasksController < ApplicationController
   end
 
   def destroy
+    @group = Group.find(params[:id])
+    @group.tasks.delete params[:task_id]
 
-  end
+    flash[:danger] = "Task has been deleted"
+    redirect_to @group
 
 
   private
