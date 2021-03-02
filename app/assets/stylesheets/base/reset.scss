@@ -16,5 +16,12 @@ html {
 body  {
   box-sizing: border-box;
   padding: 3rem;
+  background-color: $color-grey-light-1;
+}
+
+.app-container {
   background-color:#e7eff6;
+  border: $color-dark-gray-800 .5rem solid;
+  padding: 10rem 7rem;
+
 }

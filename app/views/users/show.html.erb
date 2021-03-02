@@ -1,8 +1,13 @@
 <% provide(:title, @user.name)%>
 
 
-<div class="user">
+<div class="user ">
+
+
+
   <h2 class = "user__name"> <%= @user.name %></h2>
+
+  <div class="user__picture">User's Profile Picture</div>
 
   <% if current_user.teacher? && !(current_user == @user) %>
     <!--      to make sure that teacher can not delete another teacher-->
@@ -15,15 +20,19 @@
 
   <p class="user__email">Email: <%= @user.email %></p>
 
+  <ul class="user__actions-list">
   <!--  visible only for teacher-->
   <% if @user.teacher?%>
     <p class="user__role">Role: Teacher</p>
-    <li><%= link_to "Create student", new_user_path%></li>
-    <li><%= link_to "Create group", new_group_path%></li>
+
+      <li><%= link_to "Create student", new_user_path, class: 'btn btn-dark'%></li>
+      <li><%= link_to "Create group", new_group_path,  class: 'btn btn-dark'%></li>
+
   <%else %>
     <p class="user__role">Role: Student</p>
   <%end %>
-    <li><%= link_to "My groups", my_groups_path%></li>
+    <li><%= link_to "My groups", my_groups_path,  class: 'btn btn-dark'%></li>
+    </ul>
 
 
 </div>

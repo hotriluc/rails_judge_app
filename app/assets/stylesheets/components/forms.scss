@@ -1,20 +1,13 @@
 
 //styling for form
 .form{
-  width: 70rem;
-
-  .login__email{
-
-  }
-
-  .login__password{
-
-  }
 
 
 
 
-  .field:not(:last-child){
+
+
+  &__field:not(:last-child){
     margin-bottom: 2rem;
   }
 }

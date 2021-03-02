@@ -10,4 +10,5 @@ class Group < ApplicationRecord
   has_many :users, through: :user_groups
   # task which was created for group will be deleted
   has_many :tasks, dependent: :destroy
+  # belongs_to :user
 end
