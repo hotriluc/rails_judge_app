@@ -10,7 +10,7 @@ class TasksController < ApplicationController
 
   def new
     @group = Group.find(params[:id])
-    @task = Task.new
+    @task = @group.tasks.build
   end
 
   def create
@@ -28,20 +28,25 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task = Task.find(params[:id])
+    @group = Group.find(params[:id])
+    @task = @group.tasks.find(params[:task_id])
+
   end
 
 
   def edit
-    @task = Task.find(params[:id])
+
+    @group = Group.find(params[:id])
+    @task = @group.tasks.find(params[:task_id])
   end
 
   def update
-    @task = Task.find(params[:id])
+    @group = Group.find(params[:id])
+    @task = @group.tasks.find(params[:task_id])
 
     if @task.update_attributes(task_params)
       flash[:success] = "Task has been updated"
-      redirect_to @task
+      redirect_to @group
     else
       render 'edit'
     end

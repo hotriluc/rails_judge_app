@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index, :show, :new, :edit,:update, :destroy]
   resources :groups, only: [:new,:create,:show, :edit, :update, :destroy]
-  resources :tasks, only: [:show]
+  # resources :tasks, only: [:show]
 
   root to:'static_pages#home'
   post 'create_student', to: 'users#create_student'
@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   # task for specific group
   get 'groups/:id/new_task', to: 'tasks#new', as: 'new_task'
   post 'groups/:id/create_task', to: 'tasks#create', as: 'create_task'
-  # get 'tasks/:id', to: 'tasks#show', as: 'tasks'
+  get 'groups/:id/tasks/:task_id', to: 'tasks#show', as: 'task'
+  get 'groups/:id/tasks/:task_id/edit', to: 'tasks#edit', as: 'edit_task'
+  patch 'groups/:id/tasks/:task_id/update', to: 'tasks#update'
 
 end
