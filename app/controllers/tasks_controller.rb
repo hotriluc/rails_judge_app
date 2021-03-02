@@ -61,12 +61,14 @@ class TasksController < ApplicationController
 
     flash[:danger] = "Task has been deleted"
     redirect_to @group
-
+  end
 
   private
 
   def task_params
     params.require(:task).permit(:name,:description,:language)
   end
+
+
 
 end
