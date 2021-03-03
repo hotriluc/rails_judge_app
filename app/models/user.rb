@@ -21,10 +21,11 @@ class User < ApplicationRecord
 
   #by deleting user he will be deleted from user_groups table
   has_many :user_groups, dependent: :destroy
+
+  has_many :groups, through: :user_groups
   #by deleting owner all of his groups must be deleted
   # (=========TO DO!!!)
-  has_many :groups, through: :user_groups, foreign_key: 'owner_id', dependent: :destroy
-
+  # has_one :group, foreign_key: :owner_id, class_name: 'Group',dependent: :destroy
 
 
 
