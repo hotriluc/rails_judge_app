@@ -1,6 +1,9 @@
 class User < ApplicationRecord
-  before_save   :downcase_email
+  require 'uuidtools'
 
+  before_save   :downcase_email
+  #before creating user generate UUID for him
+  before_create :generate_uuid
 
 
   # Include default devise modules. Others available are:
@@ -35,6 +38,10 @@ class User < ApplicationRecord
     self.email = email.downcase
   end
 
+  # UUID generator
+  def generate_uuid
+    self.id = UUIDTools::UUID.random_create.to_s
+  end
 
 
 end

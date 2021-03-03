@@ -40,6 +40,8 @@ gem 'devise'
 gem 'bootstrap', '~> 4.5.2'
 gem 'jquery-rails'
 
+gem 'uuidtools'
+
 group 'development' do
   gem 'listen'
 

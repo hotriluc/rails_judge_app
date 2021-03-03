@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 2021_03_01_110646) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "owner_id"
+    t.string "owner_id"
     t.index ["owner_id"], name: "index_groups_on_owner_id"
   end
 
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 2021_03_01_110646) do
   end
 
   create_table "user_groups", force: :cascade do |t|
-    t.bigint "user_id"
+    t.string "user_id"
     t.bigint "group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 2021_03_01_110646) do
     t.index ["user_id"], name: "index_user_groups_on_user_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :string, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 2021_03_01_110646) do
     t.datetime "updated_at", null: false
     t.string "name"
     t.boolean "teacher", default: true
-    t.integer "creator_id"
+    t.string "creator_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
