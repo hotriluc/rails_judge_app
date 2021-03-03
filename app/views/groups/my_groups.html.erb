@@ -2,8 +2,9 @@
 
 <h1>My groups</h1>
 
-<ul class="groups">
+<ul class="list-group row">
   <% @groups.each do |group| %>
+
     <%= render group %>
   <% end %>
 

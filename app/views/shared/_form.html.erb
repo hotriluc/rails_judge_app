@@ -3,11 +3,11 @@
   <%resource = @user %>
   <%partial_path = 'users/user_form_fields' %>
 
-  <%if controller.action_name == 'new'%>
-    <%route = {controller: 'users', action: 'create_student'} %>
-  <%elsif controller.action_name == 'edit'%>
-    <%route = {controller: 'users', action: 'update'} %>
-  <%end%>
+    <%if controller.action_name == 'new'%>
+      <%route = {controller: 'users', action: 'create_student'} %>
+    <%elsif controller.action_name == 'edit'%>
+      <%route = {controller: 'users', action: 'update'} %>
+    <%end%>
 
 <%elsif controller.controller_name == "tasks"%>
   <%resource = @task %>
@@ -16,6 +16,15 @@
     <%route = {controller: 'tasks', action: 'create'} %>
   <%elsif controller.action_name == 'edit'%>
     <%route = {controller: 'tasks', action: 'update'} %>
+  <%end%>
+
+<%elsif controller.controller_name == "groups"%>
+  <%resource = @group %>
+  <%partial_path = 'groups/group_form_fields' %>
+  <%if controller.action_name == 'new'%>
+    <%route = {controller: 'groups', action: 'create'} %>
+  <%elsif controller.action_name == 'edit'%>
+    <%route = {controller: 'groups', action: 'update'} %>
   <%end%>
 
 
@@ -29,11 +38,12 @@
 
 <div class="row justify-content-center">
   <div class="col-md-5 col-md-offset-3">
-
+    <div class="form">
       <%= form_for resource, url: url_for(route) do |f| %>
 
       <%=render partial: partial_path, locals: {f: f} %>
 
     <% end %>
+    </div>
   </div>
 </div>
