@@ -6,7 +6,7 @@ class TasksController < ApplicationController
 
   # before_action :teacher_user, only: []
   before_action :correct_owner, only: [:new, :create, :edit, :update, :destroy]
-
+  after_action :send_notification, only: [:create, :update]
 
   def new
     @group = Group.find(params[:id])
@@ -22,6 +22,7 @@ class TasksController < ApplicationController
 
     #saving task
     if @task.save
+      # TaskMailer.task_create_notification(@owner, @task).deliver_later
       flash[:success] = "Task has been successfully created"
       redirect_to @group
     else
@@ -69,6 +70,26 @@ class TasksController < ApplicationController
     params.require(:task).permit(:name,:description,:language)
   end
 
+
+  # Send notification after create and update task
+  def send_notification
+    # Getting users of current group
+    @group = Group.find(params[:id])
+    @users = @group.users
+
+    # Subject for mail
+    if action_name == "create"
+      subject = "New task creation"
+    else
+      subject = "Task update"
+    end
+
+    # Sending mail to each user of the group
+    @users.each do |user|
+      TaskMailer.task_create_notification(subject, user, @group, @task).deliver_now
+    end
+
+  end
 
 
 end

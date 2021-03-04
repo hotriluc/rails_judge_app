@@ -1,0 +1,26 @@
+
+
+Hi <%=@user.email %>!
+
+
+<%= link_to @task.name , task_url(@group,@task)%> has been created/updated
+
+<h1>Task info:</h1>
+<div class="task-info">
+  <p class="task__name"><%= link_to @task.name , task_url(@group,@task)%></p>
+  <p class="task__id">task id: <%=@task.id %></p>
+</div>
+
+
+<div class="group-info">
+  <p class="group__name"><%=@group.name %></p>
+  <p class="group__id">group id: <%=@group.id%></p>
+</div>
+
+<div>
+  <p>Available tasks can be viewed on group page</p>
+  <%=link_to @group.name, @group%>
+
+</div>
+
+
