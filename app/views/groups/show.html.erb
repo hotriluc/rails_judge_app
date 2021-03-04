@@ -14,44 +14,64 @@
 <h2>Owner: <%=@owner.name%></h2>
 
 
-<div class="row">
-  <div class="col-md-4">
-    <h2>In Group:</h2>
-    <ul class="users">
+<ul class="nav nav-pills">
+  <li class="nav-item">
+    <a class="nav-link active" data-toggle="pill" href="#in-group" role="tab" aria-controls="pills-flamingo" aria-selected="true">In Group</a>
+  </li>
+  <% if current_user.teacher? && current_user == @owner%>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="pill" href="#not-in-group" role="tab" aria-controls="pills-cuckoo" aria-selected="false">Not in group</a>
+  </li>
+  <%end %>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="pill" href="#tasks" role="tab" aria-controls="pills-ostrich" aria-selected="false">Tasks</a>
+  </li>
+
+</ul>
+
+
+
+<div class="tab-content mt-3">
+  <div class="tab-pane fade show active" id="in-group">
+    <ul class="list row">
       <% @users.each do |user| %>
+        <div class="list__item col-md-4">
         <%= render user do%>
           <% if current_user == @owner%>
-            <%= link_to "Remove from group", remove_from_group_path(@group.id, user: user), method: :post
-            %>
+            <%= link_to "Remove from group", remove_from_group_path(@group.id, user: user), method: :post%>
           <%end %>
         <%end %>
+        </div>
       <% end %>
     </ul>
   </div>
+
 
   <% if current_user.teacher? && current_user == @owner%>
-    <div class="col-md-4">
-      <h2>Not in group:</h2>
-      <ul class="users">
-        <% @users_not_in_group.each do |user| %>
+  <div class="tab-pane fade" id="not-in-group">
+    <ul class="list row">
+      <% @users_not_in_group.each do |user| %>
+        <div class="list__item col-md-4">
           <%= render user do%>
-            <%= link_to "Add to group", add_to_group_path(@group.id, user: user), method: :post
-            %>
-          <%end %>
-        <% end %>
-      </ul>
-    </div>
-  <%end%>
-
-  <div class="col-md-4">
-    <h2>Tasks:</h2>
-    <ul class="tasks">
-      <% @tasks.each do |task| %>
-        <%= render task %>
+          <%= link_to "Add to group", add_to_group_path(@group.id, user: user), method: :post
+          %>
+        <%end %>
+        </div>
       <% end %>
     </ul>
   </div>
+  <%end %>
 
-
+  <div class="tab-pane fade" id="tasks">
+    <ul class="list row">
+      <% @tasks.each do |task| %>
+        <div class="list__item col-md-2">
+          <%= render task %>
+        </div>
+      <% end %>
+    </ul>
+  </div>
 </div>
+
+
 
