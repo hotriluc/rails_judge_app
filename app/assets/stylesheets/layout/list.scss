@@ -2,20 +2,29 @@
 
 
 
-
   &__item {
+    text-align: center;
     margin: 2rem;
-    transition: all .3s;
+    //transition: all .3s;
+
+    //
+    //&:not(:last-child){
+    //  margin-right: 2.5rem;
+    //}
   }
 
   &__link {
-    background-color: $color-dark-gray-800;
-    color: $color-grey-light-2;
-    display: block;
-    text-align: center;
-    padding: 3rem 4rem;
 
+    font-size: 2.2rem;
+
+    &:active,
+    &:visited,
+    &:link {
+      color: $color-grey-light-2;
+      text-decoration: none;
+    }
   }
+
 
   //&__item:hover{
   //  transform: scale(1.1);

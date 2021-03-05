@@ -1,14 +1,23 @@
-<li>
-
-  <%= link_to user.name, user %>
-  <% if current_user.teacher? && !(current_user == user) %>
+<li class="list__item col-md-2">
 
 
-<!--     If user teacher then do something with users (but not with other teachers)-->
+
+  <div class="card">
+    <div class="card__header">
+      <p class="card__title"><%= link_to user.name, user %></p>
+    </div>
+
+    <div class="card__body">
+
+    </div>
 
 
+    <% if current_user.teacher? && !(current_user == user) %>
+      <!--     If user teacher then do something with users (but not with other teachers)-->
       <%=yield %>
+    <% end %>
+
+  </div>
 
 
-  <% end %>
 </li>

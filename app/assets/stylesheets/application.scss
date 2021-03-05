@@ -17,10 +17,14 @@
 @import "base/reset";
 @import "base/utilities";
 @import "base/typography";
+
 @import "components/forms";
 @import "components/buttons";
 @import "components/alerts";
+@import "components/tab-pane";
+@import "components/card";
+
 @import "pages/home";
 @import "users";
-@import "components/tab-pane";
+
 @import "layout/list";

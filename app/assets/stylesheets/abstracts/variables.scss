@@ -17,3 +17,7 @@ $color-white: #fff;
 $color-black: #000;
 
 $state-danger-text: red;
+
+//Shodow for cards default state and hover state
+$shadow-1: 0 1.5rem 4rem rgba($color-black, .1);
+$shadow-1-hover: 0 2rem 4rem rgba($color-black, .2);

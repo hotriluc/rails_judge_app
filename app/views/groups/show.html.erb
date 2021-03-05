@@ -1,19 +1,21 @@
 
-<h1><%= @group.id %> | <%= @group.name %></h1>
+<h1 class="group__name"><%= @group.id %> | <%= @group.name %></h1>
 
-<% if current_user.teacher? && current_user == @owner%>
-  <%= link_to "Edit group (name)", edit_group_path(@group)%>
-  <%= link_to "Delete", @group, method: :delete,
-              data: { confirm: "You sure?" } %>
+<div class="group__operations">
+  <% if current_user.teacher? && current_user == @owner%>
+    <%= link_to "Edit group (name)", edit_group_path(@group)%>
+    <%= link_to "Delete", @group, method: :delete,
+                data: { confirm: "You sure?" } %>
 
-  <%= link_to "Create new task", new_task_path(@group.id)
-  %>
+    <%= link_to "Create new task", new_task_path(@group.id)
+    %>
 
-<%end %>
+  <%end %>
+</div>
 
-<h2>Owner: <%=@owner.name%></h2>
+<h2 class="group__owner">Owner: <%=@owner.name%></h2>
 
-
+<div class="group__tabs">
 <ul class="nav nav-pills">
   <li class="nav-item">
     <a class="nav-link active" data-toggle="pill" href="#in-group" role="tab" aria-controls="pills-flamingo" aria-selected="true">In Group</a>
@@ -28,20 +30,22 @@
   </li>
 
 </ul>
+</div>
 
 
 
 <div class="tab-content mt-3">
   <div class="tab-pane fade show active" id="in-group">
-    <ul class="list row">
+    <ul class="row justify-content-center align-items-center">
       <% @users.each do |user| %>
-        <div class="list__item col-md-4">
+
         <%= render user do%>
           <% if current_user == @owner%>
-            <%= link_to "Remove from group", remove_from_group_path(@group.id, user: user), method: :post%>
+            <%= link_to "Remove from group", remove_from_group_path(@group.id, user: user), method: :post,
+                        class: 'btn-dark'%>
           <%end %>
         <%end %>
-        </div>
+
       <% end %>
     </ul>
   </div>
@@ -49,25 +53,24 @@
 
   <% if current_user.teacher? && current_user == @owner%>
   <div class="tab-pane fade" id="not-in-group">
-    <ul class="list row">
+    <ul class="row justify-content-center align-items-center">
       <% @users_not_in_group.each do |user| %>
-        <div class="list__item col-md-4">
+
           <%= render user do%>
-          <%= link_to "Add to group", add_to_group_path(@group.id, user: user), method: :post
-          %>
+          <%= link_to "Add to group", add_to_group_path(@group.id, user: user), method: :post, class: 'btn-dark'%>
         <%end %>
-        </div>
+
       <% end %>
     </ul>
   </div>
   <%end %>
 
   <div class="tab-pane fade" id="tasks">
-    <ul class="list row">
+    <ul class="row justify-content-between align-items-center">
       <% @tasks.each do |task| %>
-        <div class="list__item col-md-2">
+
           <%= render task %>
-        </div>
+
       <% end %>
     </ul>
   </div>

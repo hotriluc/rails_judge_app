@@ -1,0 +1,26 @@
+.card {
+  transition: all .3s;
+  box-shadow: $shadow-1;
+
+
+  &__title {
+    font-size: 3rem;
+    font-weight: 700;
+  }
+
+
+
+
+
+
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: $shadow-1-hover;
+  }
+
+
+
+
+
+}
