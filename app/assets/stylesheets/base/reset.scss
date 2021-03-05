@@ -33,4 +33,8 @@ ul {
 
 a {
   display: inline-block;
+
+  &:link, visited{
+    text-decoration: none;
+  }
 }

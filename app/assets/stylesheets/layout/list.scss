@@ -3,9 +3,24 @@
 
 
   &__item {
+
     text-align: center;
     margin: 2rem;
+
+    display: flex;
+
+
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    box-shadow: $shadow-1;
+
     //transition: all .3s;
+    //
+    //
+    //&:hover{
+    //  transform: scale(1.1);
+    //}
+    //
 
     //
     //&:not(:last-child){
@@ -15,19 +30,24 @@
 
   &__link {
 
-    font-size: 2.2rem;
+    //to make flex item take the rest of the flexbox's content
+    flex: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
 
     &:active,
     &:visited,
     &:link {
-      color: $color-grey-light-2;
+
+
       text-decoration: none;
     }
   }
 
 
-  //&__item:hover{
-  //  transform: scale(1.1);
-  //}
+
 }
 

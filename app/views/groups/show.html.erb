@@ -1,5 +1,5 @@
 
-<h1 class="group__name"><%= @group.id %> | <%= @group.name %></h1>
+<h1 class="heading-1 group__name"><%= @group.id %> | <%= @group.name %></h1>
 
 <div class="group__operations">
   <% if current_user.teacher? && current_user == @owner%>
@@ -42,7 +42,7 @@
         <%= render user do%>
           <% if current_user == @owner%>
             <%= link_to "Remove from group", remove_from_group_path(@group.id, user: user), method: :post,
-                        class: 'btn-dark'%>
+                        class: 'list__link card__btn btn-dark'%>
           <%end %>
         <%end %>
 
@@ -57,7 +57,7 @@
       <% @users_not_in_group.each do |user| %>
 
           <%= render user do%>
-          <%= link_to "Add to group", add_to_group_path(@group.id, user: user), method: :post, class: 'btn-dark'%>
+          <%= link_to "Add to group", add_to_group_path(@group.id, user: user), method: :post, class: 'list__link card__btn btn-dark'%>
         <%end %>
 
       <% end %>
