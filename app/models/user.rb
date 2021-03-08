@@ -31,6 +31,10 @@ class User < ApplicationRecord
   # has_one :group, foreign_key: :owner_id, class_name: 'Group',dependent: :destroy
 
 
+  has_many :solutions, dependent: :destroy
+  has_many :tasks, through: :solutions
+
+
 
   private
 

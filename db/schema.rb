@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_01_110646) do
+ActiveRecord::Schema.define(version: 2021_03_05_162854) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,16 @@ ActiveRecord::Schema.define(version: 2021_03_01_110646) do
     t.datetime "updated_at", null: false
     t.string "owner_id"
     t.index ["owner_id"], name: "index_groups_on_owner_id"
+  end
+
+  create_table "solutions", force: :cascade do |t|
+    t.text "solution"
+    t.string "user_id"
+    t.bigint "task_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["task_id"], name: "index_solutions_on_task_id"
+    t.index ["user_id"], name: "index_solutions_on_user_id"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -62,6 +72,8 @@ ActiveRecord::Schema.define(version: 2021_03_01_110646) do
   end
 
   add_foreign_key "groups", "users", column: "owner_id"
+  add_foreign_key "solutions", "tasks"
+  add_foreign_key "solutions", "users"
   add_foreign_key "tasks", "groups"
   add_foreign_key "user_groups", "groups"
   add_foreign_key "user_groups", "users"
