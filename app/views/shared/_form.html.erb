@@ -28,6 +28,16 @@
   <%end%>
 
 
+<%elsif controller.controller_name == "solutions"%>
+  <%resource = @solution %>
+  <%partial_path = 'solutions/solution_form_fields' %>
+  <%if controller.action_name == 'new'%>
+    <%route = {controller: 'solutions', action: 'create'} %>
+  <%elsif controller.action_name == 'edit'%>
+    <%route = {controller: 'solutions', action: 'update'} %>
+  <%end%>
+
+
 
 <%end %>
 

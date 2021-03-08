@@ -25,4 +25,9 @@ Rails.application.routes.draw do
   get 'groups/:id/tasks/:task_id/edit', to: 'tasks#edit', as: 'edit_task'
   patch 'groups/:id/tasks/:task_id', to: 'tasks#update'
   delete 'groups/:id/tasks/:task_id', to: 'tasks#destroy', as: 'delete_task'
+
+
+  #solutions
+  get 'groups/:id/tasks/:task_id/new_solution', to: 'solutions#new', as: 'new_solution'
+  post 'groups/:id/tasks/:task_id/create_solution', to: 'solutions#create', as: 'create_solution'
 end

@@ -8,3 +8,11 @@
 <h3>Programming language: <%=@task.language %></h3>
 <h3>Description</h3>
 <p><%=@task.description %></p>
+
+<!--link to solution new form passing the task id-->
+<%=link_to "apply solution", new_solution_path(@group.id, task_id: @task) %>
+
+<!--show user's solutions for current task-->
+<%=link_to "My solutions", "#" %>
+
+
