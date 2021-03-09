@@ -1,4 +1,19 @@
 class Solution < ApplicationRecord
+
+  include AASM
+
+  aasm column: :state do
+    state :progress, initial: true
+    state :final
+
+    event :mark_final do
+      transitions from: :progress, to: :final
+    end
+
+  end
+
+
+
   belongs_to :user
   belongs_to :task
 

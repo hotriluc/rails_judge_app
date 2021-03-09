@@ -41,6 +41,8 @@ gem 'bootstrap', '~> 4.5.2'
 gem 'jquery-rails'
 
 gem 'uuidtools'
+gem 'aasm'
+
 
 group 'development' do
   gem 'listen'
