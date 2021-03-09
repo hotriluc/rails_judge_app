@@ -28,6 +28,8 @@ Rails.application.routes.draw do
 
 
   #solutions
+  resources :solutions, only: [:show]
   get 'groups/:id/tasks/:task_id/new_solution', to: 'solutions#new', as: 'new_solution'
   post 'groups/:id/tasks/:task_id/create_solution', to: 'solutions#create', as: 'create_solution'
+
 end

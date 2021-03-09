@@ -21,7 +21,7 @@ class SolutionsController < ApplicationController
     if @solution.save
 
       flash[:success] = "Solution has been successfully created"
-      redirect_to root_path
+      redirect_to @solution
     else
       render 'new'
     end
@@ -29,11 +29,23 @@ class SolutionsController < ApplicationController
   end
 
 
+  def show
+    @solution = Solution.find(params[:id])
+
+  end
+
+
+
   private
 
 
   def solution_params
     params.require(:solution).permit(:solution)
+  end
+
+  def solution_creator
+    @solution = Solution.find(params[:id])
+    redirect_to root_path unless current_user.id == @solution.user_id
   end
 
 
