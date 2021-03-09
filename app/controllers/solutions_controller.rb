@@ -10,6 +10,7 @@ class SolutionsController < ApplicationController
   def create
 
 
+
     #create new solution for specific task
     @task = Task.find(params[:task_id])
 
@@ -18,6 +19,8 @@ class SolutionsController < ApplicationController
     # solution belongs to current user
     @solution.user_id = current_user.id
 
+    #solution name (user_name+task_name)
+    @solution.name = "#{current_user.name} #{@task.name}"
 
     #saving solution
     if @solution.save
@@ -29,6 +32,7 @@ class SolutionsController < ApplicationController
     end
 
   end
+
 
   #show only for everyone but only creator or teacher can edit
   def show

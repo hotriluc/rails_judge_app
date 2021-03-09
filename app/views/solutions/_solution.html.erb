@@ -1,7 +1,7 @@
 <li class="col-md-3">
 
   <div class="list__item">
-    <%= link_to solution, solution_path(params[:id],task_id: params[:task_id], solution_id: solution), class: "list__link" %>
+    <%= link_to "#{solution.name}-#{solution.id}", solution_path(params[:id],task_id: params[:task_id], solution_id: solution), class: "list__link" %>
 
     <% if current_user.teacher?  %>
 
