@@ -22,7 +22,7 @@
 
   <ul class="user__actions-list">
   <!--  visible only for teacher-->
-  <% if @user.teacher?%>
+  <% if current_user.teacher?%>
     <p class="user__role">Role: Teacher</p>
 
       <li><%= link_to "Create student", new_user_path, class: 'btn btn-dark'%></li>

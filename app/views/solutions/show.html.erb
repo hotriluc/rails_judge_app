@@ -13,6 +13,10 @@
     Solution: <%=@solution.solution %>
   </p>
 
+  <%= link_to "Edit", edit_solution_path(params[:id], task_id: @solution.task_id , solution_id: @solution)%>
+  <%= link_to "Delete", delete_solution_path(params[:id], task_id: @solution.task_id , solution_id: @solution), method: :delete,
+              data: { confirm: "You sure?" } %>
+
 </div>
 
 
