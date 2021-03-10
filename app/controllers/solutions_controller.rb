@@ -1,5 +1,6 @@
 class SolutionsController < ApplicationController
   include ApplicationHelper
+  before_action :solution_creator_or_group_owner, only: [:show,:edit,:update,:destroy]
 
   def new
     #apply solution for specific task
@@ -8,8 +9,6 @@ class SolutionsController < ApplicationController
   end
 
   def create
-
-
 
     #create new solution for specific task
     @task = Task.find(params[:task_id])
@@ -36,7 +35,10 @@ class SolutionsController < ApplicationController
 
   #show only for everyone but only creator or teacher can edit
   def show
-
+    @group = Group.find(params[:id])
+    # p '======================='
+    # p Group.consist_user?(@group,current_user.id)
+    # p '==================='
     @solution = Solution.find(params[:solution_id])
   end
 
@@ -63,9 +65,7 @@ class SolutionsController < ApplicationController
   end
 
   def destroy
-    p '==============='
-    p params
-    p '==============='
+
     @solution = Solution.find(params[:solution_id])
     @task  = Task.find(@solution.task_id)
 
@@ -82,10 +82,20 @@ class SolutionsController < ApplicationController
     params.require(:solution).permit(:solution)
   end
 
-  def solution_creator
-    @solution = Solution.find(params[:id])
-    redirect_to root_path unless current_user.id == @solution.user_id
+
+  def solution_creator_or_group_owner
+    @group = Group.find(params[:id])
+    @owner = User.find(@group.owner_id)
+    @solution = Solution.find(params[:solution_id])
+
+    #do action only if current_user is solution creator or owner of the group
+    unless (current_user.id == @solution.user_id) || (current_user.id == @owner.id)
+      flash[:danger] = "You are not solution creator/group teacher"
+      redirect_to root_path
+    end
   end
+
+
 
 
 end

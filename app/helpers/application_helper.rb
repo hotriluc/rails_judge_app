@@ -53,11 +53,9 @@ module ApplicationHelper
     end
   end
 
-
   #only exact student creator
   def creator
     @user = User.find(params[:id])
-
     # check if user's creator is the current user
     # if he is then he can edit delete and update
     unless @user.creator_id == current_user.id

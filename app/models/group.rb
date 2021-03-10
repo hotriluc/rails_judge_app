@@ -12,4 +12,10 @@ class Group < ApplicationRecord
   has_many :tasks, dependent: :destroy
 
   # belongs_to :user
+  #
+  #
+  def self.consist_user?(group, user)
+    return true if (group.users.exists?(user))
+    false
+  end
 end

@@ -31,10 +31,10 @@ Rails.application.routes.draw do
 
   get 'groups/:id/tasks/:task_id/new_solution', to: 'solutions#new', as: 'new_solution'
   post 'groups/:id/tasks/:task_id/create_solution', to: 'solutions#create', as: 'create_solution'
-  get 'groups/:id/tasks/:task_id/my_solutions', to: 'solutions#current_task_solutions', as: 'my_solutions'
-  get 'groups/:id/tasks/:task_id/my_solutions/:solution_id', to: 'solutions#show', as: 'solution'
-  get 'groups/:id/tasks/:task_id/my_solutions/:solution_id/edit', to: 'solutions#edit', as: 'edit_solution'
-  patch 'groups/:id/tasks/:task_id/my_solutions/:solution_id/', to: 'solutions#update'
-  delete 'groups/:id/tasks/:task_id/my_solutions/:solution_id/', to: 'solutions#destroy', as: 'delete_solution'
+  get 'groups/:id/tasks/:task_id/solutions', to: 'solutions#current_task_solutions', as: 'my_solutions'
+  get 'groups/:id/tasks/:task_id/solutions/:solution_id', to: 'solutions#show', as: 'solution'
+  get 'groups/:id/tasks/:task_id/solutions/:solution_id/edit', to: 'solutions#edit', as: 'edit_solution'
+  patch 'groups/:id/tasks/:task_id/solutions/:solution_id/', to: 'solutions#update'
+  delete 'groups/:id/tasks/:task_id/solutions/:solution_id/', to: 'solutions#destroy', as: 'delete_solution'
 
 end

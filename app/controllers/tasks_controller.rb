@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   #before action (check if user is a teacher and owner)
   # for new create edit update destroy is needed
 
-  # before_action :teacher_user, only: []
+  # Only teacher can do actions with Task resource
   before_action :correct_owner, only: [:new, :create, :edit, :update, :destroy]
   after_action :send_notification, only: [:create, :update]
 
@@ -33,13 +33,23 @@ class TasksController < ApplicationController
   def show
 
     @group = Group.find(params[:id])
-    @task = @group.tasks.find(params[:task_id])
+    # p '======================'
+    # p Group.consist_user?(@group, current_user.id)
+    # p '========================='
+
+    # Only user that in group can view task
+    if Group.consist_user?(@group, current_user.id)
+      @task = @group.tasks.find(params[:task_id])
+    else
+      flash[:danger] = "You don't have permission to view this content"
+      redirect_to root_path
+    end
+
 
   end
 
 
   def edit
-
     @group = Group.find(params[:id])
     @task = @group.tasks.find(params[:task_id])
   end

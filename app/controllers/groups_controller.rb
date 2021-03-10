@@ -37,11 +37,18 @@ class GroupsController < ApplicationController
 
     @group = Group.find(params[:id])
 
-    @owner = User.find(@group.owner_id)
-    @users = @group.users
-    @users_not_in_group = User.where.not(id: @users)
+    # show group only if user is attending
+    if Group.consist_user?(@group, current_user.id)
 
-    @tasks = @group.tasks
+      @owner = User.find(@group.owner_id)
+      @users = @group.users
+      @users_not_in_group = User.where.not(id: @users)
+      @tasks = @group.tasks
+    else
+      flash[:danger] = "You don't have permission to view this content"
+      redirect_to root_path
+    end
+
   end
 
   def edit
