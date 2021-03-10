@@ -1,14 +1,14 @@
-<li class="col-md-3">
+<li class="">
 
-  <div class="list__item">
-    <%= link_to "#{solution.name}-#{solution.id}", solution_path(params[:id],task_id: params[:task_id], solution_id: solution), class: "list__link" %>
+
+    <%= link_to "#{solution.name}-#{solution.id}", solution_path(params[:id],task_id: params[:task_id], solution_id: solution) %>
 
     <% if current_user.teacher?  %>
 
       <%=yield %>
     <% end %>
 
-  </div>
+
 
 
 </li>

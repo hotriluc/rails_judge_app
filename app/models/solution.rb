@@ -4,10 +4,26 @@ class Solution < ApplicationRecord
 
   aasm column: :state do
     state :progress, initial: true
-    state :final
+    state :final, :approved, :disapproved
 
     event :mark_final do
-      transitions from: :progress, to: :final
+      before do
+        p "Current state of the solution is: #{state}"
+      end
+
+      after do
+        p "New state of the solution is: #{state}"
+      end
+
+      transitions from: [:progress], to: :final
+    end
+
+    event :disapprove do
+      transitions from: :final, to: :progress
+    end
+
+    event :approve do
+      transitions from: :final, to: :approved, after: :send_to_drop_box
     end
 
   end
@@ -20,12 +36,19 @@ class Solution < ApplicationRecord
   #validations
   validates(:solution, presence: true)
 
-
   #callbacks
   before_save :downcase_and_split
 
 
 
+  def send_to_drop_box
+    p 'send to drop_box'
+  end
+
+
+  def correct_creator?(user)
+    user.id == self.user_id
+  end
 
   private
 

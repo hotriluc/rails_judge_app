@@ -1,6 +1,14 @@
 class SolutionsController < ApplicationController
   include ApplicationHelper
   before_action :solution_creator_or_group_owner, only: [:show,:edit,:update,:destroy]
+  before_action :correct_owner, only: [:index, :apply_as_approved]
+
+
+
+  def index
+    @task = Task.find(params[:task_id])
+    @solutions = @task.solutions
+  end
 
   def new
     #apply solution for specific task
@@ -58,12 +66,6 @@ class SolutionsController < ApplicationController
 
   end
 
-  # show all user's solution for current task
-  def current_task_solutions
-    #selecting all user's solution for specific task
-    @solutions = current_user.solutions.where(task_id: params[:task_id])
-  end
-
   def destroy
 
     @solution = Solution.find(params[:solution_id])
@@ -71,8 +73,60 @@ class SolutionsController < ApplicationController
 
     Solution.find(params[:solution_id]).destroy
     flash[:success] = "Solution has been deleted"
-    redirect_to task_path(params[:id],@task)
+    redirect_to task_path(params[:id], @task)
   end
+
+  # show all user's solution for current task
+  def current_task_solutions
+    #selecting all user's solution for specific task
+    @solutions = current_user.solutions.where(task_id: params[:task_id])
+  end
+
+
+  # def current_task_final_solutions
+  #   @task = Task.find(params[:task_id])
+  #   @solutions = @task.solutions.where(state:"final")
+  # end
+
+
+  def apply_as_final
+
+    @solution = Solution.find(params[:solution_id])
+
+    if (@solution.correct_creator?(current_user))
+      @solution.mark_final!
+      flash[:success] = "Final solution"
+      redirect_to solution_path(params[:id], task_id: params[:task_id], solution_id: @solution)
+    else
+      flash[:danger] = "You are not owner of the solution"
+      redirect_to root_path
+      end
+
+
+    # if !(@solution.final?)
+    #   @solution.mark_final!
+    #   flash[:success] = "Final solution"
+    # else
+    #   flash[:info] = "Can't be marked as final"
+    # end
+
+
+  end
+
+
+  def apply_as_approved
+
+    @solution = Solution.find(params[:solution_id])
+    if !(@solution.approved?)
+      @solution.approve!
+      flash[:success] = "Solution has been approved"
+    else
+      flash[:info] = "You can't change status of approved solution"
+    end
+
+    redirect_to solution_path(params[:id], task_id: params[:task_id], solution_id: @solution)
+  end
+
 
 
   private
