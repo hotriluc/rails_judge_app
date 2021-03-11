@@ -42,6 +42,8 @@ gem 'jquery-rails'
 
 gem 'uuidtools'
 gem 'aasm'
+gem 'delayed_job_active_record'
+
 
 
 group 'development' do

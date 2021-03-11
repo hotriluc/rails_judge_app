@@ -117,9 +117,14 @@ class SolutionsController < ApplicationController
   def apply_as_approved
 
     @solution = Solution.find(params[:solution_id])
+
+    # Delayed::Job.enqueue SolutionNameJob.new(@solution)
+
     if !(@solution.approved?)
       @solution.approve!
       flash[:success] = "Solution has been approved"
+
+
     else
       flash[:info] = "You can't change status of approved solution"
     end

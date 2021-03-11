@@ -23,7 +23,7 @@ class Solution < ApplicationRecord
     end
 
     event :approve do
-      transitions from: :final, to: :approved, after: :send_to_drop_box
+      transitions from: :final, to: :approved
     end
 
   end
@@ -40,11 +40,13 @@ class Solution < ApplicationRecord
   before_save :downcase_and_split
 
 
-
-  def send_to_drop_box
-    p 'send to drop_box'
+  def say_solution_name
+    puts "======================="
+    puts "I am solution #{self.name} my id: #{self.id}"
+    puts self.to_json
+    puts "======================="
   end
-
+  # handle_asynchronously :say_solution_name, :run_at => Proc.new { 30.seconds.from_now }
 
   def correct_creator?(user)
     user.id == self.user_id
