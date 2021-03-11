@@ -43,7 +43,7 @@ gem 'jquery-rails'
 gem 'uuidtools'
 gem 'aasm'
 gem 'delayed_job_active_record'
-
+gem "dropbox_api"
 
 
 group 'development' do

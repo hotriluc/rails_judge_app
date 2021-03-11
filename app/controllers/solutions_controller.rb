@@ -4,7 +4,7 @@ class SolutionsController < ApplicationController
   before_action :correct_owner, only: [:index, :apply_as_approved]
 
 
-
+  # showing all solutions to specific task
   def index
     @task = Task.find(params[:task_id])
     @solutions = @task.solutions
@@ -44,9 +44,6 @@ class SolutionsController < ApplicationController
   #show only for everyone but only creator or teacher can edit
   def show
     @group = Group.find(params[:id])
-    # p '======================='
-    # p Group.consist_user?(@group,current_user.id)
-    # p '==================='
     @solution = Solution.find(params[:solution_id])
   end
 
@@ -94,21 +91,26 @@ class SolutionsController < ApplicationController
     @solution = Solution.find(params[:solution_id])
 
     if (@solution.correct_creator?(current_user))
-      @solution.mark_final!
-      flash[:success] = "Final solution"
+
+
+      if @solution.final?
+        flash[:info] = "This solution is already final"
+      elsif @solution.approved?
+        flash[:info] = "This solution is approved"
+      else
+        @solution.mark_final!
+        flash[:success] = "Solution is final"
+      end
+
       redirect_to solution_path(params[:id], task_id: params[:task_id], solution_id: @solution)
+
     else
       flash[:danger] = "You are not owner of the solution"
       redirect_to root_path
-      end
+    end
 
 
-    # if !(@solution.final?)
-    #   @solution.mark_final!
-    #   flash[:success] = "Final solution"
-    # else
-    #   flash[:info] = "Can't be marked as final"
-    # end
+
 
 
   end
@@ -118,20 +120,27 @@ class SolutionsController < ApplicationController
 
     @solution = Solution.find(params[:solution_id])
 
-    # Delayed::Job.enqueue SolutionNameJob.new(@solution)
 
-    if !(@solution.approved?)
-      @solution.approve!
-      flash[:success] = "Solution has been approved"
-
-
-    else
+    if @solution.approved?
       flash[:info] = "You can't change status of approved solution"
+    else
+      # change state of the solution
+      @solution.approve!
+
+      flash[:success] = "Solution has been approved"
+      #After approving task use delayed job to send it to the dropbox
+      Delayed::Job.enqueue SendApprovedSolutionJob.new(@solution)
     end
+
 
     redirect_to solution_path(params[:id], task_id: params[:task_id], solution_id: @solution)
   end
 
+
+  def all_approved_solutions
+    @solutions = Solution.where(state: "approved")
+
+  end
 
 
   private
