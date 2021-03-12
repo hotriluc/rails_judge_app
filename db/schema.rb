@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_10_152647) do
+ActiveRecord::Schema.define(version: 2021_03_12_150741) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 2021_03_10_152647) do
     t.datetime "updated_at", null: false
     t.string "name"
     t.string "state", default: "progress"
+    t.string "judge_token", default: "-"
     t.index ["task_id"], name: "index_solutions_on_task_id"
     t.index ["user_id"], name: "index_solutions_on_user_id"
   end

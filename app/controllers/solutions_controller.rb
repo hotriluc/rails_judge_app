@@ -141,7 +141,16 @@ class SolutionsController < ApplicationController
 
   def all_approved_solutions
     @solutions = Solution.where(state: "approved")
+  end
 
+  def judge_solution
+    @solution = Solution.find(params[:solution_id])
+    Delayed::Job.enqueue JudgeSolutionJob.new(@solution), 4, 1.seconds.from_now
+    flash[:info] = "Your judge token will appear in 30 seconds"
+
+
+
+    redirect_to solution_path(params[:id], task_id: params[:task_id], solution_id: @solution)
   end
 
 

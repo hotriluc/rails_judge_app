@@ -13,25 +13,31 @@
     <p class="solution__info">
       Task ID: <%=@solution.task_id %>
     </p>
-    <p>
+    <p class="solution__info">
       Solution: <%=@solution.solution %>
     </p>
 
+
+    <div class="judge-report">
+      <p class="solution__info">Judge token: <%=@solution.judge_token %></p>
+    </div>
   </div>
 
   <div class="col-md-4 d-flex flex-column justify-content-center">
     <%= link_to "Edit", edit_solution_path(params[:id], task_id: @solution.task_id , solution_id: @solution), class: 'btn-dark'%>
     <%= link_to "Delete", delete_solution_path(params[:id], task_id: @solution.task_id , solution_id: @solution), method: :delete,
                 data: { confirm: "You sure?" } ,class: 'btn-dark'%>
+    <%= link_to "Judge solution", judge_solution_path(params[:id], task_id: @solution.task_id , solution_id: @solution), method: :post ,class: 'btn-dark'%>
 
     <%if !@solution.final? %>
       <%= link_to "Mark as final", final_solution_path(params[:id], task_id: @solution.task_id , solution_id: @solution), method: :post , class: 'btn-dark'%>
 
     <%end %>
-
-
     <%= link_to "Mark as approved", approve_solution_path(params[:id], task_id: @solution.task_id , solution_id: @solution), method: :post ,class: 'btn-dark'%>
+
   </div>
+
+
 
 
 
