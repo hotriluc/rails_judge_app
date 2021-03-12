@@ -1,7 +1,6 @@
 <% if current_user.teacher? %>
   <%= link_to "Edit task", edit_task_path(@group.id, task_id: @task)%>
   <%= link_to "Delete", delete_task_path(@group.id, task_id: @task), method: :delete,data: { confirm: "You sure?" } %>
-
 <%end %>
 
 <h1 class="heading-1"><%=@task.name %></h1>
@@ -16,5 +15,5 @@
 <%=link_to "My solutions", my_solutions_path(@group.id, task_id: @task), class: 'btn-dark'%>
 
 <%if current_user.teacher? %>
-<%=link_to "All Solutions", solutions_path(@group.id, task_id: @task), class: 'btn-dark' %>
+<%=link_to "All final Solutions", solutions_path(@group.id, task_id: @task), class: 'btn-dark' %>
 <%end %>

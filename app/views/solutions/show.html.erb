@@ -1,32 +1,39 @@
-<div class="solution">
-  <h1 class="heading-1"><%=@solution.name %></h1>
-  <p class="solution__info">
-    ID: <%=@solution.id %>
-  </p>
-  <p>
-    Status: <%=@solution.state %>
-  </p>
-  <p class="solution__info">
-    User ID: <%=@solution.user_id %>
-  </p>
-  <p class="solution__info">
-    Task ID: <%=@solution.task_id %>
-  </p>
-  <p>
-    Solution: <%=@solution.solution %>
-  </p>
+<div class="row justify-content-center solution">
+  <div class="col-md-4">
+    <h1 class="heading-1"><%=@solution.name %></h1>
+    <p class="solution__info">
+      ID: <%=@solution.id %>
+    </p>
+    <p>
+      Status: <%=@solution.state %>
+    </p>
+    <p class="solution__info">
+      User ID: <%=@solution.user_id %>
+    </p>
+    <p class="solution__info">
+      Task ID: <%=@solution.task_id %>
+    </p>
+    <p>
+      Solution: <%=@solution.solution %>
+    </p>
 
-  <%= link_to "Edit", edit_solution_path(params[:id], task_id: @solution.task_id , solution_id: @solution), class: 'btn-dark'%>
-  <%= link_to "Delete", delete_solution_path(params[:id], task_id: @solution.task_id , solution_id: @solution), method: :delete,
-              data: { confirm: "You sure?" } ,class: 'btn-dark'%>
+  </div>
 
-  <%if !@solution.final? %>
-    <%= link_to "Mark as final", final_solution_path(params[:id], task_id: @solution.task_id , solution_id: @solution), method: :post , class: 'btn-dark'%>
+  <div class="col-md-4 d-flex flex-column justify-content-center">
+    <%= link_to "Edit", edit_solution_path(params[:id], task_id: @solution.task_id , solution_id: @solution), class: 'btn-dark'%>
+    <%= link_to "Delete", delete_solution_path(params[:id], task_id: @solution.task_id , solution_id: @solution), method: :delete,
+                data: { confirm: "You sure?" } ,class: 'btn-dark'%>
 
-  <%end %>
+    <%if !@solution.final? %>
+      <%= link_to "Mark as final", final_solution_path(params[:id], task_id: @solution.task_id , solution_id: @solution), method: :post , class: 'btn-dark'%>
+
+    <%end %>
 
 
-  <%= link_to "Mark as approved", approve_solution_path(params[:id], task_id: @solution.task_id , solution_id: @solution), method: :post ,class: 'btn-dark'%>
+    <%= link_to "Mark as approved", approve_solution_path(params[:id], task_id: @solution.task_id , solution_id: @solution), method: :post ,class: 'btn-dark'%>
+  </div>
+
+
 
 </div>
 

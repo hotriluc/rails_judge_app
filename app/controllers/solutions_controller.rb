@@ -6,8 +6,12 @@ class SolutionsController < ApplicationController
 
   # showing all solutions to specific task
   def index
-    @task = Task.find(params[:task_id])
-    @solutions = @task.solutions
+
+      @task = Task.find(params[:task_id])
+      @solutions = @task.solutions.where(state:"final")
+
+    # @task = Task.find(params[:task_id])
+    # @solutions = @task.solutions
   end
 
   def new
@@ -109,10 +113,6 @@ class SolutionsController < ApplicationController
       redirect_to root_path
     end
 
-
-
-
-
   end
 
 
@@ -129,7 +129,7 @@ class SolutionsController < ApplicationController
 
       flash[:success] = "Solution has been approved"
       #After approving task use delayed job to send it to the dropbox
-      Delayed::Job.enqueue SendApprovedSolutionJob.new(@solution)
+      Delayed::Job.enqueue SendApprovedSolutionJob.new(@solution), 1, 30.seconds.from_now
     end
 
 
