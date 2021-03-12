@@ -98,12 +98,12 @@ class SolutionsController < ApplicationController
 
 
       if @solution.final?
-        flash[:info] = "This solution is already final"
+        flash[:info] = "The solution is already final state"
       elsif @solution.approved?
-        flash[:info] = "This solution is approved"
+        flash[:info] = "The solution can't be marked as final because it has been already approved"
       else
         @solution.mark_final!
-        flash[:success] = "Solution is final"
+        flash[:success] = "The solution has been marked as final"
       end
 
       redirect_to solution_path(params[:id], task_id: params[:task_id], solution_id: @solution)
@@ -123,11 +123,13 @@ class SolutionsController < ApplicationController
 
     if @solution.approved?
       flash[:info] = "You can't change status of approved solution"
+    elsif @solution.progress?
+      flash[:info] = "The solution can't be marked as approved because it is in progress state"
     else
       # change state of the solution
       @solution.approve!
 
-      flash[:success] = "Solution has been approved"
+      flash[:success] = "The solution has been approved"
       #After approving task use delayed job to send it to the dropbox
       Delayed::Job.enqueue SendApprovedSolutionJob.new(@solution), 1, 30.seconds.from_now
     end
