@@ -183,6 +183,11 @@ class SolutionsController < ApplicationController
   def download_judge_reports
     @task = Task.find(params[:task_id])
     @solutions = @task.solutions.where(state:"final")
+
+    Delayed::Job.enqueue DownloadReportsJob.new(@solutions)
+
+
+    redirect_to solutions_path(params[:id], task_id: params[:task_id])
   end
 
 

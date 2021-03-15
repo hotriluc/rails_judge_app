@@ -39,21 +39,8 @@ class Solution < ApplicationRecord
   #callbacks
   before_save :downcase_and_split
 
-  def self.download_zip(solutions)
-    solutions.each do |solution|
-
-    end
-  end
 
 
-
-  def say_solution_name
-    puts "======================="
-    puts "I am solution #{self.name} my id: #{self.id}"
-    puts self.to_json
-    puts "======================="
-  end
-  # handle_asynchronously :say_solution_name, :run_at => Proc.new { 30.seconds.from_now }
 
 
   #Getting submission with judge_token
@@ -63,6 +50,8 @@ class Solution < ApplicationRecord
     response = RestClient.get(url, headers=auth)
     report = response.body
   end
+
+
 
   def judge
     #to authenticate on rapidApi

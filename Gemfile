@@ -45,6 +45,9 @@ gem 'aasm'
 gem 'delayed_job_active_record'
 gem "dropbox_api"
 gem 'rest-client'
+gem 'rubyzip'
+
+
 
 group 'development' do
   gem 'listen'

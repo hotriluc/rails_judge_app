@@ -1,4 +1,5 @@
 <h1 class="heading-1">All solutions</h1>
+<%= link_to "Download all reports", download_judge_reports_path(params[:id], task_id: params[:task_id]),class: 'btn-dark'%>
 <ul class=" ">
   <% @solutions.each do |solution| %>
     <%= render solution %>
