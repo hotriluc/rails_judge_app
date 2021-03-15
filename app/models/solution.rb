@@ -39,6 +39,13 @@ class Solution < ApplicationRecord
   #callbacks
   before_save :downcase_and_split
 
+  def self.download_zip(solutions)
+    solutions.each do |solution|
+
+    end
+  end
+
+
 
   def say_solution_name
     puts "======================="
@@ -47,6 +54,16 @@ class Solution < ApplicationRecord
     puts "======================="
   end
   # handle_asynchronously :say_solution_name, :run_at => Proc.new { 30.seconds.from_now }
+
+  #getting submission with judge_token
+  def download
+    auth = {"x-rapidapi-key":  'ef1458feb2msh5cde710ff61a688p128d3fjsnc54b06694895'}
+    url = "https://judge0-ce.p.rapidapi.com/submissions/#{self.judge_token}?base64_encoded=false"
+    response = RestClient.get(url, headers=auth)
+    report = response.body
+  end
+
+
 
   def correct_creator?(user)
     user.id == self.user_id

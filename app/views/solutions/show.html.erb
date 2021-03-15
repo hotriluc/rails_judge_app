@@ -27,13 +27,20 @@
     <%= link_to "Edit", edit_solution_path(params[:id], task_id: @solution.task_id , solution_id: @solution), class: 'btn-dark'%>
     <%= link_to "Delete", delete_solution_path(params[:id], task_id: @solution.task_id , solution_id: @solution), method: :delete,
                 data: { confirm: "You sure?" } ,class: 'btn-dark'%>
-    <%= link_to "Judge solution", judge_solution_path(params[:id], task_id: @solution.task_id , solution_id: @solution), method: :post ,class: 'btn-dark'%>
+    <%= link_to "Send the solution to judge0", judge_solution_path(params[:id], task_id: @solution.task_id , solution_id: @solution), method: :post ,class: 'btn-dark'%>
 
     <%if !@solution.final? %>
       <%= link_to "Mark as final", final_solution_path(params[:id], task_id: @solution.task_id , solution_id: @solution), method: :post , class: 'btn-dark'%>
 
     <%end %>
     <%= link_to "Mark as approved", approve_solution_path(params[:id], task_id: @solution.task_id , solution_id: @solution), method: :post ,class: 'btn-dark'%>
+
+    <%if !(@solution.judge_token.empty?) %>
+    <%= link_to "Download judge report", download_judge_report_path(params[:id], task_id: @solution.task_id , solution_id: @solution) ,class: 'btn-dark'%>
+    <%end %>
+      </div>
+
+  <div>
 
   </div>
 

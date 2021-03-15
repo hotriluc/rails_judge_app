@@ -41,5 +41,7 @@ Rails.application.routes.draw do
   post 'groups/:id/tasks/:task_id/solutions/:solution_id/final', to: 'solutions#apply_as_final', as: 'final_solution'
   post 'groups/:id/tasks/:task_id/solutions/:solution_id/approve', to: 'solutions#apply_as_approved', as: 'approve_solution'
   post 'groups/:id/tasks/:task_id/solutions/:solution_id/judge', to: 'solutions#judge_solution', as: 'judge_solution'
+  get 'groups/:id/tasks/:task_id/solutions/:solution_id/report', to: 'solutions#download_judge_report', as: 'download_judge_report'
+
 
 end

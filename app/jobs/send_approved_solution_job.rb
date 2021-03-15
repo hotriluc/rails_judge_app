@@ -12,7 +12,7 @@ class SendApprovedSolutionJob < Struct.new(:solution)
 
 
 
-    client = DropboxApi::Client.new("Re0v0X7mKfAAAAAAAAAAAQyl3o5ZeOWwTFFafxsJqIPT-642fytbmKpr--f1PFLe")
+    client = DropboxApi::Client.new("CHjiFkO8xAUAAAAAAAAAARV_xG9cvdm81hEqiyNkrxaVdfmb71zUk9ZLye9BfqsM")
     client.upload(path,solution.to_json, {
       autorename: true,
       mode: :overwrite})

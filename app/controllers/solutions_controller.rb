@@ -94,6 +94,7 @@ class SolutionsController < ApplicationController
 
     @solution = Solution.find(params[:solution_id])
 
+    #User is solution's owner
     if (@solution.correct_creator?(current_user))
 
 
@@ -102,12 +103,17 @@ class SolutionsController < ApplicationController
       elsif @solution.approved?
         flash[:info] = "The solution can't be marked as final because it has been already approved"
       else
-        @solution.mark_final!
-        flash[:success] = "The solution has been marked as final"
+        if !(@solution.judge_token.empty?)
+          @solution.mark_final!
+          flash[:success] = "The solution has been marked as final"
+        else
+          flash[:info] = "Judge your solution"
+        end
       end
 
       redirect_to solution_path(params[:id], task_id: params[:task_id], solution_id: @solution)
 
+    #  User is not solution's owner
     else
       flash[:danger] = "You are not owner of the solution"
       redirect_to root_path
@@ -115,7 +121,7 @@ class SolutionsController < ApplicationController
 
   end
 
-
+  #
   def apply_as_approved
 
     @solution = Solution.find(params[:solution_id])
@@ -126,32 +132,44 @@ class SolutionsController < ApplicationController
     elsif @solution.progress?
       flash[:info] = "The solution can't be marked as approved because it is in progress state"
     else
-      # change state of the solution
-      @solution.approve!
+      if !(@solution.judge_token.empty?)
+        # change state of the solution
+        @solution.approve!
 
-      flash[:success] = "The solution has been approved"
-      #After approving task use delayed job to send it to the dropbox
-      Delayed::Job.enqueue SendApprovedSolutionJob.new(@solution), 1, 30.seconds.from_now
+        flash[:success] = "The solution has been approved"
+        #After approving task use delayed job to send it to the dropbox
+        Delayed::Job.enqueue SendApprovedSolutionJob.new(@solution), 1, 10.seconds.from_now
+      else
+        flash[:info] = "No judge token"
+      end
     end
 
 
     redirect_to solution_path(params[:id], task_id: params[:task_id], solution_id: @solution)
   end
 
-
+  #All solutions with approved state
   def all_approved_solutions
     @solutions = Solution.where(state: "approved")
   end
 
+  #Send solution to judge
   def judge_solution
     @solution = Solution.find(params[:solution_id])
-    Delayed::Job.enqueue JudgeSolutionJob.new(@solution), 4, 1.seconds.from_now
-    flash[:info] = "Your judge token will appear in 30 seconds"
-
-
+    Delayed::Job.enqueue JudgeSolutionJob.new(@solution)
+    flash[:info] = "Your judge token will appear in few seconds"
 
     redirect_to solution_path(params[:id], task_id: params[:task_id], solution_id: @solution)
   end
+
+  def download_judge_report
+    @solution = Solution.find(params[:solution_id])
+    report = @solution.download
+    send_data(report, file_name: 'report.json')
+  end
+
+
+
 
 
   private
