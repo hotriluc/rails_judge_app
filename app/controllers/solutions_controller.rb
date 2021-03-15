@@ -155,20 +155,35 @@ class SolutionsController < ApplicationController
 
   #Send solution to judge
   def judge_solution
-    @solution = Solution.find(params[:solution_id])
-    Delayed::Job.enqueue JudgeSolutionJob.new(@solution)
-    flash[:info] = "Your judge token will appear in few seconds"
 
-    redirect_to solution_path(params[:id], task_id: params[:task_id], solution_id: @solution)
+    @solution = Solution.find(params[:solution_id])
+
+    #User is solution's owner
+    if @solution.correct_creator?(current_user)
+      Delayed::Job.enqueue JudgeSolutionJob.new(@solution)
+      flash[:info] = "Your judge token will appear in few seconds"
+
+      redirect_to solution_path(params[:id], task_id: params[:task_id], solution_id: @solution)
+
+    else
+      #  User is not solution's owner
+      flash[:danger] = "You are not owner of the solution"
+      redirect_to root_path
+    end
+
   end
 
+  # download single report
   def download_judge_report
     @solution = Solution.find(params[:solution_id])
     report = @solution.download
     send_data(report, file_name: 'report.json')
   end
 
-
+  def download_judge_reports
+    @task = Task.find(params[:task_id])
+    @solutions = @task.solutions.where(state:"final")
+  end
 
 
 
