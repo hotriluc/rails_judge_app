@@ -5,11 +5,6 @@ class DownloadReportsJob <  Struct.new(:solutions)
 
     file = "archive.zip"
 
-    # solutions.each do |solution|
-    #   file = File.open('public/event.json', 'w') { |f| f.write(solution.all.to_json) }
-    # end
-
-
 
     Zip::File.open(file, Zip::File::CREATE) do |zipfile|
       solutions.each do |solution|
@@ -19,8 +14,6 @@ class DownloadReportsJob <  Struct.new(:solutions)
       end
     end
     zip_data = File.read(file)
-    puts zip_data
 
-    # send_file(zip_data, :type => 'application/zip', :filename => "All submissions")
   end
 end

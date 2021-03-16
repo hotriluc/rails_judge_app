@@ -93,7 +93,7 @@ class GroupsController < ApplicationController
 
     #should check if user is in group then add
     @group.users << @user
-    @group.save
+    @group.save!
 
     redirect_to @group
 

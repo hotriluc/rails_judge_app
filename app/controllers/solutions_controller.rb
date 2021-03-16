@@ -71,8 +71,15 @@ class SolutionsController < ApplicationController
 
     @solution = Solution.find(params[:solution_id])
     @task  = Task.find(@solution.task_id)
+    begin
+      Solution.find(params[:solution_id]).destroy!
+    rescue => e
+      puts e.message
+      e.backtrace
+      e.body
 
-    Solution.find(params[:solution_id]).destroy
+    end
+
     flash[:success] = "Solution has been deleted"
     redirect_to task_path(params[:id], @task)
   end
@@ -184,10 +191,10 @@ class SolutionsController < ApplicationController
     @task = Task.find(params[:task_id])
     @solutions = @task.solutions.where(state:"final")
 
-    Delayed::Job.enqueue DownloadReportsJob.new(@solutions)
-
-
-    redirect_to solutions_path(params[:id], task_id: params[:task_id])
+    # Delayed::Job.enqueue DownloadReportsJob.new(@solutions)
+    zip_data = Solution.download_zip(@solutions)
+    send_data(zip_data, file_name: 'final_reports.zip')
+    # redirect_to solutions_path(params[:id], task_id: params[:task_id])
   end
 
 

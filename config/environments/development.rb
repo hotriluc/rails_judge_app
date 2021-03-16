@@ -69,4 +69,9 @@ Rails.application.configure do
 
 
   config.force_ssl = false
+
+
+  # rewrite file in zip
+  Zip.on_exists_proc = true
+  Zip.continue_on_exists_proc = true
 end
